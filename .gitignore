@@ -1,3 +1,8 @@
+.classpath
 .gradle/
+.idea/
 .project
 .settings/
+fourteen-two.iml
+fourteen-two.ipr
+fourteen-two.iws
