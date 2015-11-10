@@ -1,6 +1,8 @@
 plugins {
     id 'eclipse'
     id 'idea'
+    id 'build-announcements'
+    id 'codenarc'
     id 'groovy'
 }
 
