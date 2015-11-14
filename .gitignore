@@ -3,6 +3,8 @@
 .idea/
 .project
 .settings/
+bin/
+build/
 fourteen-two.iml
 fourteen-two.ipr
 fourteen-two.iws
