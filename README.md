@@ -2,6 +2,12 @@
 
 A cloud-based Ultimate Pool League scoring application.
 
+## quickstart
+
+* `./build/test` - Run all tests.
+* `./build/cibuild` - Run all continuous integration tasks.
+* `./gradlew tasks` - Show all Gradle build tasks.
+
 ## development / API
 
 ### match schedule
