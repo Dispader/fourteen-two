@@ -1,7 +1,5 @@
 package org.domuique.fourteentwo
 
-import org.junit.Ignore;
-
 import spock.lang.Specification
 
 class TeamServiceSpec extends Specification {
