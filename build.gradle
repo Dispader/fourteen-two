@@ -16,3 +16,10 @@ tasks.withType(Test) {
     testLogging.exceptionFormat = 'full'
     testLogging.showStandardStreams = true
 }
+
+tasks.withType(CodeNarc) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
