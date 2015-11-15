@@ -27,7 +27,7 @@ at fairly regular URLs, e.g.:
 
 To obtain machine-parsable text data, the application currently makes use of a pulbic OCR REST service ([described here](http://okfnlabs.org/blog/2015/02/21/documents-to-text.html)).
 
-`curl -T ./src/test/resources/2015-fall-advsunsched.pdf http://beta.offenedaten.de:9998/tika`
+`curl --upload-file ./src/test/resources/2015/fall/advsundiv.pdf http://beta.offenedaten.de:9998/tika`
 
 will process one of the downloaded test resoures.  *Note* that direct push to the server
 
