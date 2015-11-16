@@ -14,4 +14,17 @@ class StandingsResource {
         }
     }
 
+    static File downloadDevisionStandings() {
+        def url = new URL('http://www.m8pool.com/pdfs/advsundiv.pdf')
+        def file = File.createTempFile('advsundiv', 'pdf')
+        def outputStream = file.newOutputStream()
+        outputStream << url.openStream()
+        outputStream.close()
+        file
+    }
+
+    static String downloadAndConvertDivisionStandings() {
+        OCR.ocr(StandingsResource.downloadDevisionStandings())
+    }
+
 }
