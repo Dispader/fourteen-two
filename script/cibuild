@@ -1,4 +1,5 @@
 #!/bin/sh
 set -e
 cd "$(dirname "$0")/.."
-./gradlew check
+./gradlew check projectReport integrationTest
+find ./build/test-results/ -exec touch {} \;

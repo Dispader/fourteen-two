@@ -2,13 +2,20 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'build-announcements'
+    id 'project-report'
     id 'codenarc'
     id 'groovy'
+    id 'org.unbroken-dome.test-sets' version '1.2.0'
+}
+
+testSets {
+    integrationTest
 }
 
 repositories.jcenter()
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
@@ -23,3 +30,4 @@ tasks.withType(CodeNarc) {
         html.enabled = true
     }
 }
+codenarcIntegrationTest.reports.xml.enabled = false // WORKAROUND: bad parsing
