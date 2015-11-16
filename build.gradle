@@ -30,3 +30,4 @@ tasks.withType(CodeNarc) {
         html.enabled = true
     }
 }
+codenarcIntegrationTest.reports.xml.enabled = false // WORKAROUND: bad parsing
