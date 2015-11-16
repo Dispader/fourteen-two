@@ -5,6 +5,11 @@ plugins {
     id 'project-report'
     id 'codenarc'
     id 'groovy'
+    id 'org.unbroken-dome.test-sets' version '1.2.0'
+}
+
+testSets {
+    integrationTest
 }
 
 repositories.jcenter()
