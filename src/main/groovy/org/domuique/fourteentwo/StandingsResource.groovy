@@ -1,6 +1,6 @@
 package org.domuique.fourteentwo
 
-class TeamResource {
+class StandingsResource {
 
     private static final String EXPRESSION = /(\d+?)\s(.*?)\s\d+.*/
 

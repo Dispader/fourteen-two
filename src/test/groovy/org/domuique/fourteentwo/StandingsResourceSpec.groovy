@@ -2,7 +2,7 @@ package org.domuique.fourteentwo
 
 import spock.lang.Specification
 
-class TeamResourceSpec extends Specification {
+class StandingsResourceSpec extends Specification {
 
     private File getResourceAsFile(String resource) {
         URL url = this.getClass().getResource(resource)
@@ -20,14 +20,14 @@ class TeamResourceSpec extends Specification {
     def 'the team resource can process a Fall 2015 Advanced Sunday schedule test file'() {
         when:
             File file = this.getResourceAsFile('/2015/fall/advsundiv.txt')
-            Collection<Team> teams = TeamResource.get(file)
+            Collection<Team> teams = StandingsResource.get(file)
         then:
             teams?.size() == 36
     }
 
     def 'the team resource can extract teams from lines of a schedule file'() {
         when:
-            Team extractedTeam = TeamResource.extract(line)
+            Team extractedTeam = StandingsResource.extract(line)
         then:
             extractedTeam == new Team(id: teamId, name: teamName)
         where:
