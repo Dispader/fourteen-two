@@ -19,15 +19,15 @@ class StandingsResourceSpec extends Specification {
 
     def 'the team resource can process a Fall 2015 Advanced Sunday schedule test file'() {
         when:
-            File file = this.getResourceAsFile('/2015/fall/advsundiv.txt')
+            def file = this.getResourceAsFile('/2015/fall/advsundiv.txt')
             Collection<Team> teams = StandingsResource.get(file)
         then:
             teams?.size() == 36
     }
 
-    def 'the team resource can extract teams from lines of a schedule file'() {
+    def 'we can extract teams from lines of a schedule file'() {
         when:
-            Team extractedTeam = StandingsResource.extract(line)
+            def extractedTeam = StandingsResource.extract(line)
         then:
             extractedTeam == new Team(id: teamId, name: teamName)
         where:
@@ -35,6 +35,16 @@ class StandingsResourceSpec extends Specification {
             '72103 14 Balls & a Rack 412 3438 28 123' | '72103' | '14 Balls & a Rack'
             '72105 Hell\'s Face 441 3619 30 121'      | '72105' | 'Hell\'s Face'
             //'72307 Stoopid 2 937 4114 27 152'         | '72307' | 'Stoopid 2' // fails with final #
+    }
+
+    def 'extracting teams from non-matching lines returns null'() {
+        when:
+            Team team = StandingsResource.extract(line)
+        then:
+            team == null
+        where:
+            line << [ '',
+                      'Standings for Week 10 November 10, 2015' ]
     }
 
 }
