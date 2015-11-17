@@ -2,16 +2,24 @@ package org.domuique.fourteentwo
 
 class StandingsResource {
 
-    private static final String EXPRESSION = /(\d+?)\s(.*?)\s\d+.*/
+    private static final String EXPRESSION = /(\d{3,}?)\s(.*?)\s\d+.*/
 
     static Collection<Team> get(File file) {
-        def teams = file.findAll { (it=~EXPRESSION).matches() }.collect { extract(it) }
-        teams
+        file.findAll { (it=~EXPRESSION).matches() }.collect { extract(it) }
     }
 
-    static Team extract(String line) { (line=~EXPRESSION).collect { match, id, name ->
+    static def get() {
+        def schedule = downloadDevisionStandings()
+        schedule.eachLine { new Team() }
+        new Team()
+        'fishy!'
+    }
+
+    static Team extract(String line) {
+        def team = (line=~EXPRESSION).collect { match, id, name ->
            [ 'id': id, 'name': name ]
         }
+        team.id ? team : null
     }
 
     static File downloadDevisionStandings() {
@@ -25,6 +33,14 @@ class StandingsResource {
 
     static String downloadAndConvertDivisionStandings() {
         OCR.ocr(StandingsResource.downloadDevisionStandings())
+    }
+
+    public static Collection<Team> getTeams() {
+        def teams = new ArrayList<Team>()
+        def schedule = downloadAndConvertDivisionStandings()
+        schedule.eachLine { teams << extract(it) }
+        teams.removeAll([null])
+        teams
     }
 
 }
