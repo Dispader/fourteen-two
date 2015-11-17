@@ -4,14 +4,14 @@ import spock.lang.Specification
 
 class StandingsResourceSpecification extends Specification {
 
-    def 'the standings resource and download standings from UPL'() {
+    def 'the standings resource can obtain UPL standings in PDF format'() {
         when:
             def file = StandingsResource.downloadDevisionStandings() 
         then:
             file
     }
 
-    def 'the standings resource can obtain a text representation of standings from UPL'() {
+    def 'the standings resource can obtain UPL standings in text format'() {
         when:
             def standings = StandingsResource.downloadAndConvertDivisionStandings()
         then:
@@ -19,7 +19,7 @@ class StandingsResourceSpecification extends Specification {
             standings.split(System.getProperty('line.separator')).length > 5
     }
 
-    def 'the standings resource can obtain teams from UPL'() {
+    def 'the standings resource can extract teams from UPL standings'() {
         when:
             def teams = StandingsResource.teams
         then:
