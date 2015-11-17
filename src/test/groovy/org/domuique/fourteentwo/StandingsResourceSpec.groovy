@@ -44,6 +44,7 @@ class StandingsResourceSpec extends Specification {
             team == null
         where:
             line << [ '',
+                      'Division #721',
                       'Standings for Week 10 November 10, 2015' ]
     }
 
