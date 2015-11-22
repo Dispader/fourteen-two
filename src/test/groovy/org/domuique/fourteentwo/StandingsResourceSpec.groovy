@@ -11,9 +11,9 @@ class StandingsResourceSpec extends Specification {
             extractedTeam == new Team(id: teamId, name: teamName)
         where:
             line                                      | teamId  | teamName
-            '72103 14 Balls & a Rack 412 3438 28 123' | '72103' | '14 Balls & a Rack'
-            '72105 Hell\'s Face 441 3619 30 121'      | '72105' | 'Hell\'s Face'
-            //'72307 Stoopid 2 937 4114 27 152'         | '72307' | 'Stoopid 2' // fails with final #
+            "72103 14 Balls & a Rack 412 3438 28 123" | "72103" | "14 Balls & a Rack"
+            "72105 Hell's Face 441 3619 30 121"       | "72105" | "Hell's Face"
+            //"72307 Stoopid 2 937 4114 27 152"         | "72307" | "Stoopid 2" // fails with final #
     }
 
     def 'extracting teams from non-matching lines returns null'() {
