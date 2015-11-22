@@ -10,13 +10,6 @@ class DivisionResourceSpec extends Specification {
         new File(filepath)
     }
 
-    def 'these tests can load a Fall 2015 Advanced Sunday schedule test file'() {
-        when:
-            String contents = this.getClass().getResource('/2015/fall/advsundiv.txt').text
-        then:
-            contents
-    }
-
     def 'we can divide standings by division'() {
         when:
             def standings = this.getResourceAsFile('/2015/fall/advsundiv.txt').text

@@ -10,13 +10,6 @@ class StandingsResourceSpec extends Specification {
         new File(filepath)
     }
 
-    def 'unit tests can load a Fall 2015 Advanced Sunday schedule test file'() {
-        when:
-            String contents = this.getClass().getResource('/2015/fall/advsundiv.txt').text
-        then:
-            contents
-    }
-
     def 'the team resource can process a Fall 2015 Advanced Sunday schedule test file'() {
         when:
             def file = this.getResourceAsFile('/2015/fall/advsundiv.txt')
