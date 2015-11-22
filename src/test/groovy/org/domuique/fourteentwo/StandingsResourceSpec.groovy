@@ -10,14 +10,6 @@ class StandingsResourceSpec extends Specification {
         new File(filepath)
     }
 
-    def 'we can divide standings by division'() {
-        when:
-            def standings = this.getResourceAsFile('/2015/fall/advsundiv.txt').text
-            Collection<String> divisions = StandingsResource.divide(standings)
-        then:
-            divisions.count { true } == 4
-    }
-
     def 'we can extract teams from lines of a schedule file'() {
         when:
             def extractedTeam = StandingsResource.extract(line)
