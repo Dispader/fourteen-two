@@ -6,20 +6,20 @@ class StandingsResourceSpecification extends Specification {
 
     def 'the standings resource can obtain UPL standings in PDF format'() {
         when:
-            def file = StandingsResource.downloadDevisionStandings() 
+            def file = StandingsResource.downloadStandings()
         then:
             file
     }
 
     def 'the standings resource can obtain UPL standings in text format'() {
         when:
-            def standings = StandingsResource.downloadAndConvertDivisionStandings()
+            def standings = StandingsResource.standings()
         then:
             standings instanceof String
             standings.split(System.getProperty('line.separator')).length > 5
     }
 
-    def 'the standings resource can extract teams from UPL standings'() {
+    def 'the standings resource can extract division #721 teams from UPL standings'() {
         when:
             def teams = StandingsResource.teams
         then:

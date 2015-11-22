@@ -10,19 +10,12 @@ class StandingsResourceSpec extends Specification {
         new File(filepath)
     }
 
-    def 'unit tests can load a Fall 2015 Advanced Sunday schedule test file'() {
+    def 'we can divide standings by division'() {
         when:
-            String contents = this.getClass().getResource('/2015/fall/advsundiv.txt').text
+            def standings = this.getResourceAsFile('/2015/fall/advsundiv.txt').text
+            Collection<String> divisions = StandingsResource.divide(standings)
         then:
-            contents
-    }
-
-    def 'the team resource can process a Fall 2015 Advanced Sunday schedule test file'() {
-        when:
-            def file = this.getResourceAsFile('/2015/fall/advsundiv.txt')
-            Collection<Team> teams = StandingsResource.get(file)
-        then:
-            teams?.size() == 36
+            divisions.count { true } == 4
     }
 
     def 'we can extract teams from lines of a schedule file'() {
