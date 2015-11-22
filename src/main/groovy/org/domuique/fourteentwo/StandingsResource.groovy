@@ -1,7 +1,5 @@
 package org.domuique.fourteentwo
 
-import java.util.Collection;
-
 class StandingsResource {
 
     private static final String PAGE_BREAK_EXPRESSION = /UPL\/M8 POOL LEAGUE/ 
