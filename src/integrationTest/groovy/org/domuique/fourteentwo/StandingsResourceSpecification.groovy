@@ -19,8 +19,8 @@ class StandingsResourceSpecification extends Specification {
             teams instanceof Collection<Team>
             teams.contains(team)
         where:
-            team << [ new Team(id: '72103', name: '14 Balls & a Rack'),
-                      new Team(id: '72105', name: 'Hell\'s Face') ]
+            team << [ new Team(id: '72103', name: "14 Balls & a Rack"),
+                      new Team(id: '72105', name: "Hell's Face") ]
     }
 
 }
