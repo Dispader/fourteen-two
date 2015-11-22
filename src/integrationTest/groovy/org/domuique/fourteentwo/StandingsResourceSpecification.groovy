@@ -4,16 +4,9 @@ import spock.lang.Specification
 
 class StandingsResourceSpecification extends Specification {
 
-    def 'the standings resource can obtain UPL standings in PDF format'() {
-        when:
-            def file = StandingsResource.downloadStandings()
-        then:
-            file
-    }
-
     def 'the standings resource can obtain UPL standings in text format'() {
         when:
-            def standings = StandingsResource.standings()
+            def standings = StandingsResource.standings
         then:
             standings instanceof String
             standings.split(System.getProperty('line.separator')).length > 5
