@@ -4,12 +4,6 @@ import spock.lang.Specification
 
 class StandingsResourceSpec extends Specification {
 
-    private File getResourceAsFile(String resource) {
-        URL url = this.getClass().getResource(resource)
-        String filepath = url.getFile().replace('%20', ' ')
-        new File(filepath)
-    }
-
     def 'we can extract teams from lines of a schedule file'() {
         when:
             def extractedTeam = StandingsResource.extract(line)
