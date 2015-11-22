@@ -5,7 +5,7 @@ class StandingsResource {
     private static final String PAGE_BREAK_EXPRESSION = /UPL\/M8 POOL LEAGUE/ 
     private static final String DIVISION_LINE_EXPRESSION = /Division #(\d{3})/ 
     private static final String TEAM_STANDING_LINE_EXPRESSION = /(\d{3,}?)\s(.*?)\s\d+.*/
-    
+
     static File downloadStandings() {
         def url = new URL('http://www.m8pool.com/pdfs/advsundiv.pdf')
         def file = File.createTempFile('advsundiv', 'pdf')
