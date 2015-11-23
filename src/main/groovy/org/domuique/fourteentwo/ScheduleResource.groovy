@@ -14,20 +14,21 @@ class ScheduleResource {
         team.listing ? team.first() : null
     }
 
-    private static Map<Integer, Map> extractTeams(String standings, List<String> teamNames) {
+    private static Map<Integer, Map> extractTeams(String schedule, List<String> teamNames) {
         def map = [:]
-        standings.eachLine { standingsLine ->
+        schedule.eachLine { scheduleLine ->
             teamNames.each { teamName ->
-                def team = ScheduleResource.extractTeamFromLine(standingsLine, teamName)
+                def team = ScheduleResource.extractTeamFromLine(scheduleLine, teamName)
                 if ( team ) { map << [ (team.listing): team ] }
             }
         }
         map
     }
 
-    public static String getTeams() {
-        def allMatches = UPL.divide(ScheduleResource.schedule)
-        allMatches.first()
+    public static Map<Integer, Map> getTeams() {
+        def standingsTeams = StandingsResource.teams
+        def standingsTeamNames = standingsTeams.collect([]) { it['name'] }
+        ScheduleResource.extractTeams(ScheduleResource.schedule, standingsTeamNames)
     }
 
 }
