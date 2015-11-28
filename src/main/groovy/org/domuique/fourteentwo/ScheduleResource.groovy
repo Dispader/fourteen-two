@@ -36,7 +36,7 @@ class ScheduleResource {
         def match = (line=~expression).collect { regexMatch, away ->
            [ 'home': home, 'away': away as Integer ]
         }
-        match?.first()
+        match.home ? match.first() : null
     }
 
     private static Map extractAwayMatchFromLine(String line, Integer away = 3) {
@@ -44,7 +44,11 @@ class ScheduleResource {
         def match = (line=~expression).collect { regexMatch, home ->
            [ 'home': home as Integer, 'away': away as Integer ]
         }
-        match?.first()
+        match.home ? match.first() : null
+    }
+
+    private static Map extractMatchFromLine(String line, Integer team = 3) {
+        def match = ScheduleResource.extractHomeMatchFromLine(line, team) ?: ScheduleResource.extractAwayMatchFromLine(line, team)
     }
 
 }
