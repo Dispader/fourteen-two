@@ -14,15 +14,6 @@ class ScheduleResource {
         team.listing ? team.first() : null
     }
 
-    private static Map extractMatchFromLine(String line, Integer teamListing = 3) {
-        //def expression = "^Week\\s+\\d{1,2}\\s:\\s+\\d{1,2}/\\d{1,2}/\\d{1,2}\\s+.*${ -> teamListing}-(\\d{1,2})\\s+.*\$"
-        def expression = "^.+${ -> teamListing}-(\\d{1,2}).+\$"
-        def match = (line=~expression).collect { regexMatch, opponentListing ->
-           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
-        }
-        match.teamListing ? match.first() : null
-    }
-
     private static Map<Integer, Map> extractTeams(String schedule, List<String> teamNames) {
         def map = [:]
         schedule.eachLine { scheduleLine ->
@@ -38,6 +29,22 @@ class ScheduleResource {
         def standingsTeams = StandingsResource.teams
         def standingsTeamNames = standingsTeams.collect([]) { it['name'] }
         ScheduleResource.extractTeams(ScheduleResource.schedule, standingsTeamNames)
+    }
+
+    private static Map extractHomeMatchFromLine(String line, Integer teamListing = 3) {
+        def expression = "^.+\\s+${ -> teamListing}-(\\d{1,2}).+\$"
+        def match = (line=~expression).collect { regexMatch, opponentListing ->
+           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
+        }
+        match.teamListing ? match.first() : null
+    }
+
+    private static Map extractAwayMatchFromLine(String line, Integer teamListing = 3) {
+        def expression = "^.+\\s+(\\d{1,2})-${ -> teamListing}.+\$"
+        def match = (line=~expression).collect { regexMatch, opponentListing ->
+           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
+        }
+        match.teamListing ? match.first() : null
     }
 
 }
