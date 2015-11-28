@@ -65,11 +65,11 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract a home match from a line'() {
         given:
-        def match = ScheduleResource.extractHomeMatchFromLine(line, 3)
-    expect:
-        match == [ 'home': 3, 'away': away ]
-    where:
-        line                                               | away
+            def match = ScheduleResource.extractHomeMatchFromLine(line, 3)
+        expect:
+            match == [ 'home': 3, 'away': away ]
+        where:
+            line                                           | away
             'Week 1: 9/13/15 1-2 3-4 5-6 7-8 9-10 11-12'   | 4
             'Week 3: 9/27/15 1-6 3-8 5-10 7-12 9-2 11-4'   | 8
             'Week 5: 10/11/15 1-10 3-12 5-8 7-4 9-6 11-2'  | 12
@@ -81,11 +81,11 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract an away match from a line'() {
         given:
-        def match = ScheduleResource.extractAwayMatchFromLine(line, 3)
-    expect:
-        match == [ 'home': home, 'away': 3 ]
-    where:
-        line                                               | home
+            def match = ScheduleResource.extractAwayMatchFromLine(line, 3)
+        expect:
+            match == [ 'home': home, 'away': 3 ]
+        where:
+            line                                           | home
             'Week 2: 9/20/15 4-1 6-3 2-5 10-7 12-9 8-11'   | 6
             'Week 4: 10/04/15 8-1 10-3 12-5 2-7 4-9 6-11'  | 10
             'Week 6: 10/18/15 12-1 2-3 4-5 6-7 8-9 10-11'  | 2
@@ -97,11 +97,11 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract a match from a line'() {
         given:
-        def match = ScheduleResource.extractMatchFromLine(line, 3)
-    expect:
-        match == [ 'home': home, 'away': away ]
-    where:
-        line                                               | home | away
+            def match = ScheduleResource.extractMatchFromLine(line, 3)
+        expect:
+            match == [ 'home': home, 'away': away ]
+        where:
+            line                                           | home | away
             'Week 1: 9/13/15 1-2 3-4 5-6 7-8 9-10 11-12'   | 3    | 4
             'Week 3: 9/27/15 1-6 3-8 5-10 7-12 9-2 11-4'   | 3    | 8
             'Week 5: 10/11/15 1-10 3-12 5-8 7-4 9-6 11-2'  | 3    | 12
