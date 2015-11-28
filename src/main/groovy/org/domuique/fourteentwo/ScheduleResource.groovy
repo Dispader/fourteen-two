@@ -14,6 +14,15 @@ class ScheduleResource {
         team.listing ? team.first() : null
     }
 
+    private static Map extractMatchFromLine(String line, Integer teamListing = 3) {
+        //def expression = "^Week\\s+\\d{1,2}\\s:\\s+\\d{1,2}/\\d{1,2}/\\d{1,2}\\s+.*${ -> teamListing}-(\\d{1,2})\\s+.*\$"
+        def expression = "^.+${ -> teamListing}-(\\d{1,2}).+\$"
+        def match = (line=~expression).collect { regexMatch, opponentListing ->
+           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
+        }
+        match.teamListing ? match.first() : null
+    }
+
     private static Map<Integer, Map> extractTeams(String schedule, List<String> teamNames) {
         def map = [:]
         schedule.eachLine { scheduleLine ->
