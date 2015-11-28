@@ -31,20 +31,20 @@ class ScheduleResource {
         ScheduleResource.extractTeams(ScheduleResource.schedule, standingsTeamNames)
     }
 
-    private static Map extractHomeMatchFromLine(String line, Integer teamListing = 3) {
-        def expression = "^.+\\s+${ -> teamListing}-(\\d{1,2}).+\$"
-        def match = (line=~expression).collect { regexMatch, opponentListing ->
-           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
+    private static Map extractHomeMatchFromLine(String line, Integer home = 3) {
+        def expression = "^.+\\s+${ -> home}-(\\d{1,2}).+\$"
+        def match = (line=~expression).collect { regexMatch, away ->
+           [ 'home': home, 'away': away as Integer ]
         }
-        match.teamListing ? match.first() : null
+        match?.first()
     }
 
-    private static Map extractAwayMatchFromLine(String line, Integer teamListing = 3) {
-        def expression = "^.+\\s+(\\d{1,2})-${ -> teamListing}.+\$"
-        def match = (line=~expression).collect { regexMatch, opponentListing ->
-           [ 'teamListing': teamListing as Integer, 'opponentListing': opponentListing as Integer ]
+    private static Map extractAwayMatchFromLine(String line, Integer away = 3) {
+        def expression = "^.+\\s+(\\d{1,2})-${ -> away}.+\$"
+        def match = (line=~expression).collect { regexMatch, home ->
+           [ 'home': home as Integer, 'away': away as Integer ]
         }
-        match.teamListing ? match.first() : null
+        match?.first()
     }
 
 }
