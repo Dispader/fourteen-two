@@ -8,8 +8,8 @@ class ScheduleResource {
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {
         def expression = "^(\\d{1,2}?)\\s+${ -> teamName}\\s+(.*?)\\s\\(.*\$"
-        def team = (line=~expression).collect { match, listing, home ->
-           [ 'listing': listing as Integer, 'name':teamName, 'home': home ]
+        def team = (line=~expression).collect { regexMatch, listing, home ->
+           [ 'listing': listing as Integer, 'name': teamName, 'home': home ]
         }
         team.listing ? team.first() : null
     }
