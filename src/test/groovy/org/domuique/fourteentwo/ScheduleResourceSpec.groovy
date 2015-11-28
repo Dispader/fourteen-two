@@ -118,4 +118,45 @@ class ScheduleResourceSpec extends Specification {
             'Week 13: 12/06/15 2-1 4-3 6-5 8-7 10-9 12-11' | 4    | 3
     }
 
+    def 'we can extract matches from a schedule for a listing'() {
+        given:
+            def schedule = """
+Week 1: 9/13/15 1-2 3-4 5-6 7-8 9-10 11-12
+Week 2: 9/20/15 4-1 6-3 2-5 10-7 12-9 8-11
+Week 3: 9/27/15 1-6 3-8 5-10 7-12 9-2 11-4
+Week 4: 10/04/15 8-1 10-3 12-5 2-7 4-9 6-11
+Week 5: 10/11/15 1-10 3-12 5-8 7-4 9-6 11-2
+Week 6: 10/18/15 12-1 2-3 4-5 6-7 8-9 10-11
+Week 7: 10/25/15 1-3 5-7 9-11 4-2 8-6 12-10
+Week 8: 11/01/15 7-1 9-5 11-3 2-8 6-10 4-12
+Week 9: 11/08/15 1-5 3-9 7-11 6-2 10-4 12-8
+Week 10: 11/15/15 5-11 3-7 9-1 12-6 8-4 2-10
+Week 11: 11/22/15 11-1 7-9 5-3 2-12 10-8 4-6
+Week 12: 11/29/15 3-2 8-12 1-4 6-9 10-5 11-7
+Week 13: 12/06/15 2-1 4-3 6-5 8-7 10-9 12-11
+Week 14: 12/13/15 1-8 3-6 5-4 7-2 9-12 11-10
+Week 15: 1/03/16 PLAY-OFFS ALL TEAMS
+Week 16: 1/10/16 PLAY-OFFS"""
+        when:
+            def matches = ScheduleResource.extractMatches(schedule, 3)
+        then:
+            matches.contains( match )
+            !matches.contains ( null )
+        where:
+            match << [ [ 'home': 3,  'away': 4  ],
+                       [ 'home': 3,  'away': 8  ],
+                       [ 'home': 3,  'away': 12 ],
+                       [ 'home': 3,  'away': 9  ],
+                       [ 'home': 3,  'away': 7  ],
+                       [ 'home': 3,  'away': 2  ],
+                       [ 'home': 3,  'away': 6  ],
+                       [ 'home': 6,  'away': 3  ],
+                       [ 'home': 10, 'away': 3  ],
+                       [ 'home': 2,  'away': 3  ],
+                       [ 'home': 1,  'away': 3  ],
+                       [ 'home': 11, 'away': 3  ],
+                       [ 'home': 5,  'away': 3  ],
+                       [ 'home': 4,  'away': 3  ] ]
+    }
+
 }
