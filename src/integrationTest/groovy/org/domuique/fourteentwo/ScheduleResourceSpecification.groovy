@@ -45,9 +45,9 @@ class ScheduleResourceSpecification extends Specification {
             9        | "Unleash the Fury"  | "Shooter's Billiards"
     }
 
-    def 'we can extract matches from a schedule for a listing'() {
+    def 'we can get a map of matches by listing'() {
         when:
-            def matches = resource.extractMatches 3
+            def matches = resource.getMatches 3
         then:
             matches.contains( match )
             !matches.contains ( null )

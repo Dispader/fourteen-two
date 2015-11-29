@@ -52,7 +52,7 @@ class ScheduleResource {
         def match = ScheduleResource.extractHomeMatchFromLine(line, listing) ?: ScheduleResource.extractAwayMatchFromLine(line, listing)
     }
 
-    private List<Map> extractMatches(Integer listing) {
+    private List<Map> getMatches(Integer listing) {
         List<Map> matches = new ArrayList<Map>()
         this.schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, listing) }
         matches.removeAll([null])
