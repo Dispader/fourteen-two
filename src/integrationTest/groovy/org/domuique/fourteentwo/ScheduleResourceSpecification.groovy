@@ -14,7 +14,7 @@ class ScheduleResourceSpecification extends Specification {
             teams.split(System.getProperty('line.separator')).length > 5
     }
 
-    def 'the schedule resource can get teams'() {
+    def 'the schedule resource can get a map of team listings'() {
         given:
             def inputTeams = [ new Team(id: '72111', name: "Holy Ballz"),
                                new Team(id: '72109', name: "Unleash the Fury"),
