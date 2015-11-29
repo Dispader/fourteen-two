@@ -58,4 +58,11 @@ class ScheduleResource {
         matches
     }
 
+    private static List<Map> extractMatches(String teamId = '72103') {
+        def team = StandingsResource.teams?.find { it.id == teamId }
+        def teamName = team['name']
+        def listing = ScheduleResource.teams?.find{ it.value.name == teamName }?.value['listing']
+        ScheduleResource.extractMatches(ScheduleResource.schedule, listing)
+    }
+
 }
