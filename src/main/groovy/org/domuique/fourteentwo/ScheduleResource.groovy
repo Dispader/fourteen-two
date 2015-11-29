@@ -59,9 +59,9 @@ class ScheduleResource {
         matches
     }
 
-    private List<Map> extractMatches(Collection<Team> teams, Team team) {
-        def listing = this.listings?.find{ it.value.name == team['name'] }?.value['listing']
-        this.extractMatches(listing)
+    private List<Map> getMatches(Collection<Team> teams, Team team) {
+        def listing = this.getListings(teams)?.find{ it.value.name == team['name'] }?.value['listing']
+        this.getMatches listing
     }
 
 }
