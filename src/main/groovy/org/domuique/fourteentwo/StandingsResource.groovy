@@ -5,8 +5,11 @@ class StandingsResource {
     private static final String DIVISION_LINE_EXPRESSION = /Division #(\d{3})/ 
     private static final String TEAM_STANDING_LINE_EXPRESSION = /(\d{3,}?)\s(.*?)\s\d+.*/
 
-    private static String getStandings() {
-        UPL.getText 'http://www.m8pool.com/pdfs/advsundiv.pdf'
+    String standings
+
+    public StandingsResource() {
+        def allStandings = UPL.getText 'http://www.m8pool.com/pdfs/advsundiv.pdf'
+        this.standings =  UPL.divide(allStandings).first()
     }
 
     private static Team extract(String line) {
@@ -16,12 +19,9 @@ class StandingsResource {
         team.id ? team : null
     }
 
-    public static Collection<Team> getTeams() {
+    public Collection<Team> getTeams() {
         def teams = new ArrayList<Team>()
-        def standings = StandingsResource.standings
-        // the following line may add multi-division support
-        def divisionStandings = UPL.divide(standings).first()
-        divisionStandings.eachLine { teams << extract(it) }
+        this.standings.eachLine { teams << extract(it) }
         teams.removeAll([null])
         teams
     }

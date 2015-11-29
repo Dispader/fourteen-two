@@ -4,6 +4,8 @@ import spock.lang.Specification
 
 class ScheduleResourceSpec extends Specification {
 
+    ScheduleResource resource = new ScheduleResource()
+
     def 'we can extract a team from a line of a schedule'() {
         given:
             def team = ScheduleResource.extractTeamFromLine(line, name)
@@ -120,7 +122,7 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract matches from a schedule for a listing'() {
         given:
-            def schedule = """
+            resource.getSchedule() << """
 Week 1: 9/13/15 1-2 3-4 5-6 7-8 9-10 11-12
 Week 2: 9/20/15 4-1 6-3 2-5 10-7 12-9 8-11
 Week 3: 9/27/15 1-6 3-8 5-10 7-12 9-2 11-4
@@ -138,7 +140,7 @@ Week 14: 12/13/15 1-8 3-6 5-4 7-2 9-12 11-10
 Week 15: 1/03/16 PLAY-OFFS ALL TEAMS
 Week 16: 1/10/16 PLAY-OFFS"""
         when:
-            def matches = ScheduleResource.extractMatches(schedule, 3)
+            def matches = resource.extractMatches(3)
         then:
             matches.contains( match )
             !matches.contains ( null )

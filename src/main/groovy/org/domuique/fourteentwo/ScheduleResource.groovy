@@ -2,8 +2,10 @@ package org.domuique.fourteentwo
 
 class ScheduleResource {
 
-    private static String getSchedule() {
-        UPL.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+    String schedule
+
+    ScheduleResource() {
+        this.schedule = UPL.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
     }
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {
@@ -25,10 +27,10 @@ class ScheduleResource {
         map
     }
 
-    public static Map<Integer, Map> getTeams() {
-        def standingsTeams = StandingsResource.teams
-        def standingsTeamNames = standingsTeams.collect([]) { it['name'] }
-        ScheduleResource.extractTeams(ScheduleResource.schedule, standingsTeamNames)
+    // TODO: RENAME this method (possibilities: getListings get getListingsMap, getTeamMap)
+    public Map<Integer, Map> getTeams(Collection teams) {
+        def teamNames = teams.collect([]) { it['name'] }
+        ScheduleResource.extractTeams(this.schedule, teamNames)
     }
 
     private static Map extractHomeMatchFromLine(String line, Integer home) {
@@ -51,18 +53,18 @@ class ScheduleResource {
         def match = ScheduleResource.extractHomeMatchFromLine(line, listing) ?: ScheduleResource.extractAwayMatchFromLine(line, listing)
     }
 
-    private static List<Map> extractMatches(String schedule, Integer team) {
+    private List<Map> extractMatches(Integer team) {
         List<Map> matches = new ArrayList<Map>()
-        schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, team) }
+        this.schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, team) }
         matches.removeAll([null])
         matches
     }
 
-    private static List<Map> extractMatches(String teamId = '72103') {
-        def team = StandingsResource.teams?.find { it.id == teamId }
+    private List<Map> extractMatches(Collection teams, String teamId = '72103') {
+        def team = teams?.find { it.id == teamId }
         def teamName = team['name']
-        def listing = ScheduleResource.teams?.find{ it.value.name == teamName }?.value['listing']
-        ScheduleResource.extractMatches(ScheduleResource.schedule, listing)
+        def listing = this.teams?.find{ it.value.name == teamName }?.value['listing']
+        ScheduleResource.extractMatches(this.schedule, listing)
     }
 
 }
