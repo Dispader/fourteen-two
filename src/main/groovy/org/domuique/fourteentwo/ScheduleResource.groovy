@@ -27,8 +27,7 @@ class ScheduleResource {
         map
     }
 
-    // TODO: RENAME this method (possibilities: getListings get getListingsMap, getTeamMap)
-    public Map<Integer, Map> getTeams(Collection teams) {
+    public Map<Integer, Map> getListings(Collection teams) {
         def teamNames = teams.collect([]) { it['name'] }
         ScheduleResource.extractTeams(this.schedule, teamNames)
     }
@@ -63,7 +62,7 @@ class ScheduleResource {
     private List<Map> extractMatches(Collection teams, String teamId = '72103') {
         def team = teams?.find { it.id == teamId }
         def teamName = team['name']
-        def listing = this.teams?.find{ it.value.name == teamName }?.value['listing']
+        def listing = this.listings?.find{ it.value.name == teamName }?.value['listing']
         ScheduleResource.extractMatches(this.schedule, listing)
     }
 

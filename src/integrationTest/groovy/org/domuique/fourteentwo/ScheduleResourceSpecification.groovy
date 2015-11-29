@@ -29,9 +29,9 @@ class ScheduleResourceSpecification extends Specification {
                                new Team(id: '72108', name: "Brooklyn Saints"),
                                new Team(id: '72102', name: "We're Hexed") ]
         when:
-            def outputTeams = resource.getTeams inputTeams
+            def listings = resource.getListings inputTeams
         then:
-            outputTeams[listing] == [ 'listing': listing, 'name': name, 'home': home ]
+            listings[listing] == [ 'listing': listing, 'name': name, 'home': home ]
         where:
             listing  | name                | home
             1        | "Tire Checkers"     | "Hexagon Bar"
