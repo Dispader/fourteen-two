@@ -32,17 +32,17 @@ class ScheduleResource {
     }
 
     private static Map extractHomeMatchFromLine(String line, Integer home = 3) {
-        def expression = "^.+\\s+${ -> home}-(\\d{1,2}).+\$"
-        def match = (line=~expression).collect { regexMatch, away ->
-           [ 'home': home, 'away': away as Integer ]
+        def expression = "^.+\\s+(\\d{1,2}/\\d{1,2}/\\d{2}).+${ -> home}-(\\d{1,2}).+\$"
+        def match = (line=~expression).collect { regexMatch, date, away ->
+            [ 'date': date, 'home': home, 'away': away as Integer ]
         }
         match.home ? match.first() : null
     }
 
     private static Map extractAwayMatchFromLine(String line, Integer away = 3) {
-        def expression = "^.+\\s+(\\d{1,2})-${ -> away}.+\$"
-        def match = (line=~expression).collect { regexMatch, home ->
-           [ 'home': home as Integer, 'away': away as Integer ]
+        def expression = "^.+\\s+(\\d{1,2}/\\d{1,2}/\\d{2}).*\\s+(\\d{1,2})-${ -> away}.+\$"
+        def match = (line=~expression).collect { regexMatch, date, home ->
+           [ 'date': date, 'home': home as Integer, 'away': away as Integer ]
         }
         match.home ? match.first() : null
     }
