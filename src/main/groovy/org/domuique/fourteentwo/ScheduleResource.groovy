@@ -47,8 +47,8 @@ class ScheduleResource {
         match.home ? match.first() : null
     }
 
-    private static Map extractMatchFromLine(String line, Integer team) {
-        def match = ScheduleResource.extractHomeMatchFromLine(line, team) ?: ScheduleResource.extractAwayMatchFromLine(line, team)
+    private static Map extractMatchFromLine(String line, Integer listing) {
+        def match = ScheduleResource.extractHomeMatchFromLine(line, listing) ?: ScheduleResource.extractAwayMatchFromLine(line, listing)
     }
 
     private static List<Map> extractMatches(String schedule, Integer team) {
