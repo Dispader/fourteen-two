@@ -1,9 +1,11 @@
 package org.domuique.fourteentwo
 
 import spock.lang.Specification
+import spock.lang.Shared
 
 class ScheduleResourceSpecification extends Specification {
 
+    @Shared
     ScheduleResource resource = new ScheduleResource()
 
     def 'the schedule resource can obtain a schedule in text format'() {
