@@ -2,8 +2,10 @@ package org.domuique.fourteentwo
 
 class ScheduleResource {
 
-    private static String getSchedule() {
-        UPL.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+    String schedule
+
+    ScheduleResource() {
+        this.schedule = UPL.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
     }
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {
@@ -25,13 +27,12 @@ class ScheduleResource {
         map
     }
 
-    public static Map<Integer, Map> getTeams() {
-        def standingsTeams = StandingsResource.teams
-        def standingsTeamNames = standingsTeams.collect([]) { it['name'] }
-        ScheduleResource.extractTeams(ScheduleResource.schedule, standingsTeamNames)
+    public Map<Integer, Map> getListings(Collection teams) {
+        def teamNames = teams.collect([]) { it['name'] }
+        ScheduleResource.extractTeams(this.schedule, teamNames)
     }
 
-    private static Map extractHomeMatchFromLine(String line, Integer home = 3) {
+    private static Map extractHomeMatchFromLine(String line, Integer home) {
         def expression = "^.+\\s+(\\d{1,2}/\\d{1,2}/\\d{2}).+${ -> home}-(\\d{1,2}).+\$"
         def match = (line=~expression).collect { regexMatch, date, away ->
             [ 'date': date, 'home': home, 'away': away as Integer ]
@@ -39,7 +40,7 @@ class ScheduleResource {
         match.home ? match.first() : null
     }
 
-    private static Map extractAwayMatchFromLine(String line, Integer away = 3) {
+    private static Map extractAwayMatchFromLine(String line, Integer away) {
         def expression = "^.+\\s+(\\d{1,2}/\\d{1,2}/\\d{2}).*\\s+(\\d{1,2})-${ -> away}.+\$"
         def match = (line=~expression).collect { regexMatch, date, home ->
            [ 'date': date, 'home': home as Integer, 'away': away as Integer ]
@@ -47,15 +48,22 @@ class ScheduleResource {
         match.home ? match.first() : null
     }
 
-    private static Map extractMatchFromLine(String line, Integer team = 3) {
-        def match = ScheduleResource.extractHomeMatchFromLine(line, team) ?: ScheduleResource.extractAwayMatchFromLine(line, team)
+    private static Map extractMatchFromLine(String line, Integer listing) {
+        def match = ScheduleResource.extractHomeMatchFromLine(line, listing) ?: ScheduleResource.extractAwayMatchFromLine(line, listing)
     }
 
-    private static List<Map> extractMatches(String schedule, Integer team = 3) {
+    private List<Map> getMatches(Integer listing) {
         List<Map> matches = new ArrayList<Map>()
-        schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, team) }
+        this.schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, listing) }
         matches.removeAll([null])
         matches
+    }
+
+    private List<Map> getMatches(Collection<Team> teams, Team team) {
+        def listings = this.getListings(teams)
+        // TODO: HERE is where you add the (class-unavailable) team ID to the listings map, before you need it below
+        def listing = listings?.find{ it.value.name == team['name'] }?.value['listing']
+        def matches = this.getMatches listing
     }
 
 }
