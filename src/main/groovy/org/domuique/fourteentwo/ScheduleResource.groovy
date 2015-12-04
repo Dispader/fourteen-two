@@ -60,10 +60,18 @@ class ScheduleResource {
     }
 
     private List<Map> getMatches(Collection<Team> teams, Team team) {
-        def listings = this.getListings(teams)
-        // TODO: HERE is where you add the (class-unavailable) team ID to the listings map, before you need it below
-        def listing = listings?.find{ it.value.name == team['name'] }?.value['listing']
+        Map<Integer, Map> listings = this.getListings(teams)
+        listings.each { listing ->
+            teams.each { aTeam ->
+                if ( listing.value['name'] == aTeam.name ) { listing.value['id'] = aTeam.id }
+            }
+        }
+        def listing = listings?.find{ it.value.id == team['id'] }?.value['listing']
         def matches = this.getMatches listing
+        matches.each { match ->
+            match['home'] = (listings[match['home']])['id']
+            match['away'] = (listings[match['away']])['id']
+        }
     }
 
 }
