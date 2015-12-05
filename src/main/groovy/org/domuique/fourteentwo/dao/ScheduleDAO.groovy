@@ -1,11 +1,13 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
-class ScheduleResource {
+import org.domuique.fourteentwo.model.Team;;
+
+class ScheduleDAO {
 
     String schedule
 
-    ScheduleResource() {
-        this.schedule = UPL.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+    ScheduleDAO() {
+        this.schedule = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
     }
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {
@@ -20,7 +22,7 @@ class ScheduleResource {
         def map = [:]
         schedule.eachLine { scheduleLine ->
             teamNames.each { teamName ->
-                def team = ScheduleResource.extractTeamFromLine(scheduleLine, teamName)
+                def team = ScheduleDAO.extractTeamFromLine(scheduleLine, teamName)
                 if ( team ) { map << [ (team.listing): team ] }
             }
         }
@@ -29,7 +31,7 @@ class ScheduleResource {
 
     public Map<Integer, Map> getListings(Collection teams) {
         def teamNames = teams.collect([]) { it['name'] }
-        ScheduleResource.extractTeams(this.schedule, teamNames)
+        ScheduleDAO.extractTeams(this.schedule, teamNames)
     }
 
     private static Map extractHomeMatchFromLine(String line, Integer home) {
@@ -49,12 +51,12 @@ class ScheduleResource {
     }
 
     private static Map extractMatchFromLine(String line, Integer listing) {
-        def match = ScheduleResource.extractHomeMatchFromLine(line, listing) ?: ScheduleResource.extractAwayMatchFromLine(line, listing)
+        def match = ScheduleDAO.extractHomeMatchFromLine(line, listing) ?: ScheduleDAO.extractAwayMatchFromLine(line, listing)
     }
 
     private List<Map> getMatches(Integer listing) {
         List<Map> matches = new ArrayList<Map>()
-        this.schedule.eachLine { matches << ScheduleResource.extractMatchFromLine(it, listing) }
+        this.schedule.eachLine { matches << ScheduleDAO.extractMatchFromLine(it, listing) }
         matches.removeAll([null])
         matches
     }

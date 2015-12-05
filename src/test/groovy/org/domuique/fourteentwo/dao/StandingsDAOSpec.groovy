@@ -1,12 +1,14 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
-import spock.lang.Specification
+import org.domuique.fourteentwo.model.Team;
 
-class StandingsResourceSpec extends Specification {
+import spock.lang.Specification;
+
+class StandingsDAOSpec extends Specification {
 
     def 'we can extract teams from lines of a schedule file'() {
         when:
-            def extractedTeam = StandingsResource.extract(line)
+            def extractedTeam = StandingsDAO.extract(line)
         then:
             extractedTeam == new Team(id: teamId, name: teamName)
         where:
@@ -18,7 +20,7 @@ class StandingsResourceSpec extends Specification {
 
     def 'extracting teams from non-matching lines returns null'() {
         when:
-            Team team = StandingsResource.extract(line)
+            Team team = StandingsDAO.extract(line)
         then:
             team == null
         where:

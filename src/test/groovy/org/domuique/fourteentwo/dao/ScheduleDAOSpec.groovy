@@ -1,8 +1,8 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import spock.lang.Specification
 
-class ScheduleResourceSpec extends Specification {
+class ScheduleDAOSpec extends Specification {
 
     private File getResourceAsFile(String resource) {
         URL url = this.getClass().getResource(resource)
@@ -13,7 +13,7 @@ class ScheduleResourceSpec extends Specification {
     String schedule = this.getResourceAsFile('/2015/fall/advsunsched721.txt').text
     def 'we can extract a team from a line of a schedule'() {
         given:
-            def team = ScheduleResource.extractTeamFromLine(line, name)
+            def team = ScheduleDAO.extractTeamFromLine(line, name)
         expect:
             team['listing'] == listing
             team['name'] == name
@@ -36,7 +36,7 @@ class ScheduleResourceSpec extends Specification {
             def names = [ "Tire Checkers", "We're Hexed", "14 Balls & a Rack", "Da Ezoob Code",
                           "Hell's Face", "Shoot 'em Dead", "PBA", "Brooklyn Saints", "Unleash the Fury" ]
         when:
-            def teams = ScheduleResource.extractTeams(schedule, names)
+            def teams = ScheduleDAO.extractTeams(schedule, names)
         then:
             teams[listing] == [ 'listing': listing, 'name': name, 'home': home ]
         where:
@@ -54,7 +54,7 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract a home match from a line'() {
         given:
-            def match = ScheduleResource.extractHomeMatchFromLine(line, 3)
+            def match = ScheduleDAO.extractHomeMatchFromLine(line, 3)
         expect:
             match == [ 'date': date, 'home': 3, 'away': away ]
         where:
@@ -70,7 +70,7 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract an away match from a line'() {
         given:
-            def match = ScheduleResource.extractAwayMatchFromLine(line, 3)
+            def match = ScheduleDAO.extractAwayMatchFromLine(line, 3)
         expect:
             match == [ 'date': date, 'home': home, 'away': 3 ]
         where:
@@ -86,7 +86,7 @@ class ScheduleResourceSpec extends Specification {
 
     def 'we can extract a match from a line'() {
         given:
-            def match = ScheduleResource.extractMatchFromLine(line, 3)
+            def match = ScheduleDAO.extractMatchFromLine(line, 3)
         expect:
             match == [ 'date': date, 'home': home, 'away': away ]
         where:

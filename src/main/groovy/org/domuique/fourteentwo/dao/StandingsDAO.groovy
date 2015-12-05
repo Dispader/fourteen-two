@@ -1,15 +1,17 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
-class StandingsResource {
+import org.domuique.fourteentwo.model.Team;;
+
+class StandingsDAO {
 
     private static final String DIVISION_LINE_EXPRESSION = /Division #(\d{3})/ 
     private static final String TEAM_STANDING_LINE_EXPRESSION = /(\d{3,}?)\s(.*?)\s\d+.*/
 
     String standings
 
-    public StandingsResource() {
-        def allStandings = UPL.getText 'http://www.m8pool.com/pdfs/advsundiv.pdf'
-        this.standings =  UPL.divide(allStandings).first()
+    public StandingsDAO() {
+        def allStandings = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsundiv.pdf'
+        this.standings =  UPLUtility.divide(allStandings).first()
     }
 
     private static Team extract(String line) {

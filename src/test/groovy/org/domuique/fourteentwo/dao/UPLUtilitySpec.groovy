@@ -1,8 +1,8 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import spock.lang.Specification
 
-class UPLSpec extends Specification {
+class UPLUtilitySpec extends Specification {
 
     private File getResourceAsFile(String resource) {
         URL url = this.getClass().getResource(resource)
@@ -13,7 +13,7 @@ class UPLSpec extends Specification {
     def 'we can divide UPL report files by division'() {
         when:
             def standings = this.getResourceAsFile('/2015/fall/advsundiv.txt').text
-            Collection<String> divisions = UPL.divide(standings)
+            Collection<String> divisions = UPLUtility.divide(standings)
         then:
             divisions.count { true } == 4
     }

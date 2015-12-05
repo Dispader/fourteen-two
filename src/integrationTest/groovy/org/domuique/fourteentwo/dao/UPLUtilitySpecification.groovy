@@ -1,8 +1,8 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import spock.lang.Specification;
 
-class UPLSpecification extends Specification {
+class UPLUtilitySpecification extends Specification {
 
     private File getResourceAsFile(String resource) {
         URL url = this.getClass().getResource(resource)
@@ -13,7 +13,7 @@ class UPLSpecification extends Specification {
     def 'the OCR method can process files'() {
         when:
             File pdf = this.getResourceAsFile('/2015/fall/advsundiv.pdf')
-            def response = UPL.ocr(pdf)
+            def response = UPLUtility.ocr(pdf)
             def lines = response.split(System.getProperty('line.separator')).length
         then:
             notThrown(Exception)
@@ -23,7 +23,7 @@ class UPLSpecification extends Specification {
 
     def 'the download utility can obtain UPL standings in PDF format'() {
         when:
-            def file = UPL.download('http://www.m8pool.com/pdfs/advsundiv.pdf')
+            def file = UPLUtility.download('http://www.m8pool.com/pdfs/advsundiv.pdf')
         then:
             file
     }

@@ -1,4 +1,4 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.model
 
 import groovy.transform.*
 

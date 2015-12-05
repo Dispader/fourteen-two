@@ -1,12 +1,14 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import spock.lang.Specification
+import org.domuique.fourteentwo.model.Team;
+
 import spock.lang.Shared
 
-class ScheduleResourceSpecification extends Specification {
+class ScheduleDAOSpecification extends Specification {
 
     @Shared
-    ScheduleResource resource = new ScheduleResource()
+    ScheduleDAO resource = new ScheduleDAO()
 
     def 'the schedule resource can obtain a schedule in text format'() {
         when:

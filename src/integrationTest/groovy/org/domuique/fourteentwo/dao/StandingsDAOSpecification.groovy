@@ -1,10 +1,11 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import spock.lang.Specification
+import org.domuique.fourteentwo.model.Team;
 
-class StandingsResourceSpecification extends Specification {
+class StandingsDAOSpecification extends Specification {
 
-    StandingsResource resource = new StandingsResource()
+    StandingsDAO resource = new StandingsDAO()
 
     def 'the standings resource can obtain UPL standings in text format'() {
         when:
