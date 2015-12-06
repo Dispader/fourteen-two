@@ -11,7 +11,7 @@ class TeamResource {
         this.teams = standingsDao.getTeams()
     }
 
-    public getTeams() {
+    public Collection<Team> getTeams() {
         if ( !(this.teams) ) { populateCache(new StandingsDAO()) }
         this.teams
     }
