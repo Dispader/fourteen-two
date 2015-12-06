@@ -1,14 +1,14 @@
-package org.domuique.fourteentwo
+package org.domuique.fourteentwo.dao
 
 import groovyx.net.http.RESTClient
 import static groovyx.net.http.ContentType.BINARY
 
-class UPL {
+class UPLUtility {
 
     private static final String PAGE_BREAK_EXPRESSION = /M8 POOL LEAGUE/
 
     static String getText(String url) {
-        UPL.ocr(UPL.download(url))
+        UPLUtility.ocr(UPLUtility.download(url))
     }
 
     private static File download(String url) {
