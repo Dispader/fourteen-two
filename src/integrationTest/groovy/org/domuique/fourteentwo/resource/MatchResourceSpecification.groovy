@@ -39,4 +39,15 @@ class MatchResourceSpecification extends Specification {
             '12/13/15' | '72103' | '72106'
     }
 
+    def 'can get the next match'() {
+        given:
+            def after = format.parse('12/06/15 00')
+        when:
+            def nextMatch = resource.getNext after
+        then:
+            nextMatch == new Match( time: format.parse('12/06/15 18'),
+                                    homeTeamId: '72104',
+                                    awayTeamId: '72103' )
+    }
+
 }
