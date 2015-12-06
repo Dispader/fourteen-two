@@ -7,7 +7,8 @@ class ScheduleDAO {
     String schedule
 
     ScheduleDAO() {
-        this.schedule = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+        def fullSchedule = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+        this.schedule = UPLUtility.divide(fullSchedule)?.first()
     }
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {

@@ -55,6 +55,7 @@ class ScheduleDAOSpecification extends Specification {
         then:
             matches.contains( match )
             !matches.contains ( null )
+            matches.size() == 14
         where:
             match << [ [ 'date': '9/13/15',  'home': 3,  'away': 4  ],
                        [ 'date': '9/27/15',  'home': 3,  'away': 8  ],
