@@ -3,6 +3,7 @@ package org.domuique.fourteentwo.resource
 import org.domuique.fourteentwo.model.Team
 import org.domuique.fourteentwo.dao.StandingsDAO;
 
+// TODO: MAKE TeamResource a factory instance
 class TeamResource {
 
     Collection<Team> teams
