@@ -6,7 +6,11 @@ import org.domuique.fourteentwo.dao.StandingsDAO;
 // TODO: MAKE TeamResource a factory instance
 class TeamResource {
 
-    Collection<Team> teams
+    private Collection<Team> teams
+
+    private static TeamResource instance = new TeamResource()
+    private TeamResource() { }
+    public static TeamResource getInstance() { this.instance }
 
     private populateCache(StandingsDAO standingsDao) {
         this.teams = standingsDao.getTeams()
