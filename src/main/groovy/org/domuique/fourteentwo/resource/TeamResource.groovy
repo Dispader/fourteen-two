@@ -16,4 +16,8 @@ class TeamResource {
         this.teams
     }
 
+    public Team getTeam(String id) {
+        if ( !(this.teams) ) { populateCache(new StandingsDAO()) }
+        this.teams.find { it.id == id }
+    }
 }
