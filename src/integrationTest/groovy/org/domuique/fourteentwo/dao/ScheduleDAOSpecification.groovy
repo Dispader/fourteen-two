@@ -72,7 +72,6 @@ class ScheduleDAOSpecification extends Specification {
                        [ 'date': '12/06/15', 'home': 4,  'away': 3  ] ]
     }
 
-    // TODO: REFACTOR this test to expect team identifiers
     def 'we can get a map of matches'() {
         given:
             def inputTeams = [ new Team(id: '72111', name: "Holy Ballz"),
