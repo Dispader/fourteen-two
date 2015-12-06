@@ -29,7 +29,7 @@ class ScheduleDAO {
         map
     }
 
-    public Map<Integer, Map> getListings(Collection teams) {
+    private Map<Integer, Map> getListings(Collection teams) {
         def teamNames = teams.collect([]) { it['name'] }
         ScheduleDAO.extractTeams(this.schedule, teamNames)
     }
