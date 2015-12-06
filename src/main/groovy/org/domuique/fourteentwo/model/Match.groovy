@@ -4,6 +4,7 @@ import groovy.transform.*
 
 @EqualsAndHashCode(includeFields=true)
 @ToString(includePackage=false, includeFields=true, includeNames=true)
-class Team {
-    String id = '', name = ''
+class Match {
+    Date time
+    String homeTeamId, awayTeamId
 }

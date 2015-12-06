@@ -6,7 +6,7 @@ import org.domuique.fourteentwo.model.Team
 class TeamResourceSpecification extends Specification {
 
     @Shared
-    TeamResource resource = new TeamResource()
+    TeamResource resource = TeamResource.getInstance()
 
     def 'can get teams'() {
         when:

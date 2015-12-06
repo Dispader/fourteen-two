@@ -51,10 +51,11 @@ class ScheduleDAOSpecification extends Specification {
 
     def 'we can get a map of matches by listing'() {
         when:
-            def matches = resource.getMatches 3
+            def matches = resource.getMatchList 3
         then:
             matches.contains( match )
             !matches.contains ( null )
+            matches.size() == 14
         where:
             match << [ [ 'date': '9/13/15',  'home': 3,  'away': 4  ],
                        [ 'date': '9/27/15',  'home': 3,  'away': 8  ],
@@ -72,7 +73,6 @@ class ScheduleDAOSpecification extends Specification {
                        [ 'date': '12/06/15', 'home': 4,  'away': 3  ] ]
     }
 
-    // TODO: REFACTOR this test to expect team identifiers
     def 'we can get a map of matches'() {
         given:
             def inputTeams = [ new Team(id: '72111', name: "Holy Ballz"),

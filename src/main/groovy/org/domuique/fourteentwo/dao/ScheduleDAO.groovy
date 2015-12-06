@@ -7,7 +7,8 @@ class ScheduleDAO {
     String schedule
 
     ScheduleDAO() {
-        this.schedule = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+        def fullSchedule = UPLUtility.getText 'http://www.m8pool.com/pdfs/advsunsched.pdf'
+        this.schedule = UPLUtility.divide(fullSchedule)?.first()
     }
 
     private static Map extractTeamFromLine(String line, String teamName = '14 Balls & a Rack') {
@@ -29,7 +30,7 @@ class ScheduleDAO {
         map
     }
 
-    public Map<Integer, Map> getListings(Collection teams) {
+    private Map<Integer, Map> getListings(Collection teams) {
         def teamNames = teams.collect([]) { it['name'] }
         ScheduleDAO.extractTeams(this.schedule, teamNames)
     }
@@ -54,14 +55,14 @@ class ScheduleDAO {
         def match = ScheduleDAO.extractHomeMatchFromLine(line, listing) ?: ScheduleDAO.extractAwayMatchFromLine(line, listing)
     }
 
-    private List<Map> getMatches(Integer listing) {
+    private List<Map> getMatchList(Integer listing) {
         List<Map> matches = new ArrayList<Map>()
         this.schedule.eachLine { matches << ScheduleDAO.extractMatchFromLine(it, listing) }
         matches.removeAll([null])
         matches
     }
 
-    private List<Map> getMatches(Collection<Team> teams, Team team) {
+    public List<Map> getMatches(Collection<Team> teams, Team team) {
         Map<Integer, Map> listings = this.getListings(teams)
         listings.each { listing ->
             teams.each { aTeam ->
@@ -69,7 +70,7 @@ class ScheduleDAO {
             }
         }
         def listing = listings?.find{ it.value.id == team['id'] }?.value['listing']
-        def matches = this.getMatches listing
+        def matches = this.getMatchList listing
         matches.each { match ->
             match['home'] = (listings[match['home']])['id']
             match['away'] = (listings[match['away']])['id']
