@@ -61,7 +61,7 @@ class ScheduleDAO {
         matches
     }
 
-    private List<Map> getMatches(Collection<Team> teams, Team team) {
+    public List<Map> getMatches(Collection<Team> teams, Team team) {
         Map<Integer, Map> listings = this.getListings(teams)
         listings.each { listing ->
             teams.each { aTeam ->
