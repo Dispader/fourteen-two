@@ -54,7 +54,7 @@ class ScheduleDAO {
         def match = ScheduleDAO.extractHomeMatchFromLine(line, listing) ?: ScheduleDAO.extractAwayMatchFromLine(line, listing)
     }
 
-    private List<Map> getMatches(Integer listing) {
+    private List<Map> getMatchList(Integer listing) {
         List<Map> matches = new ArrayList<Map>()
         this.schedule.eachLine { matches << ScheduleDAO.extractMatchFromLine(it, listing) }
         matches.removeAll([null])
@@ -69,7 +69,7 @@ class ScheduleDAO {
             }
         }
         def listing = listings?.find{ it.value.id == team['id'] }?.value['listing']
-        def matches = this.getMatches listing
+        def matches = this.getMatchList listing
         matches.each { match ->
             match['home'] = (listings[match['home']])['id']
             match['away'] = (listings[match['away']])['id']

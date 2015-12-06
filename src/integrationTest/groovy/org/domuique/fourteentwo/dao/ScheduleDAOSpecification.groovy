@@ -51,7 +51,7 @@ class ScheduleDAOSpecification extends Specification {
 
     def 'we can get a map of matches by listing'() {
         when:
-            def matches = resource.getMatches 3
+            def matches = resource.getMatchList 3
         then:
             matches.contains( match )
             !matches.contains ( null )
