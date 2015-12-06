@@ -12,7 +12,7 @@ class MatchResourceSpecification extends Specification {
     @Shared
     MatchResource resource = new MatchResource()
 
-    def 'can get teams'() {
+    def 'can get matches'() {
         when:
             def matches = resource.matches
         then:
