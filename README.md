@@ -6,7 +6,7 @@ A cloud-based Ultimate Pool League scoring application.
 
 This project uses [Gradle](http://gradle.org/) as a build system, and provides [standardized project scripts](http://githubengineering.com/scripts-to-rule-them-all/) for developers.
 
-* `./build/test` - Run all tests.
+* `./build/watch` - Runs all checks and tests, watching for dependent changes in source trees.
 * `./build/cibuild` - Run all continuous integration tasks.
 * `./gradlew tasks` - Show all Gradle build tasks.
 
