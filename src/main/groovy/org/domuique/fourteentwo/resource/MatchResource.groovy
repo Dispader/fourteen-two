@@ -31,4 +31,9 @@ class MatchResource {
         this.matches
     }
 
+    public Match getNext(Date after = new Date()) {
+        def matchList = this.getMatches()
+        matchList.find { it.time > after }
+    }
+
 }
