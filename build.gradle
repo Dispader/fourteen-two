@@ -6,6 +6,14 @@ plugins {
     id 'codenarc'
     id 'groovy'
     id 'org.unbroken-dome.test-sets' version '1.2.0'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.5'
+}
+repositories { jcenter() }
+
+allprojects {
+    group = 'org.domuique.fourteentwo'
+    version = '0.0-snapshot'
 }
 
 testSets {
@@ -31,3 +39,37 @@ tasks.withType(CodeNarc) {
     }
 }
 //codenarcIntegrationTest.reports.xml.enabled = false // WORKAROUND: bad parsing
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar, javadocJar
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['mavenJava']
+    pkg {
+        repo = 'maven'
+        userOrg = 'marmousets'
+        name = 'fourteen-two'
+        desc = 'A billards league application.'
+        websiteUrl = 'https://github.com/Marmousets/fourteen-two'
+        issueTrackerUrl = 'https://github.com/Marmousets/fourteen-two/issues'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'git@github.com:Marmousets/fourteen-two.git'
+    }
+}

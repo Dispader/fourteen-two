@@ -10,6 +10,15 @@ This project uses [Gradle](http://gradle.org/) as a build system, and provides [
 * `./build/cibuild` - Run all continuous integration tasks.
 * `./gradlew tasks` - Show all Gradle build tasks.
 
+## releasing
+
+This product releases to Bintray / JCenter at present.  To produce releases
+
+* set the environment variables required to authenticate to Bintray
+  * `BINTRAY_USER`
+  * `BINTRAY_KEY`
+* remember to update `allProjects.group`
+
 ## development / API
 
 ### match schedule
