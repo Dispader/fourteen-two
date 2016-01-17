@@ -1,6 +1,7 @@
 # Fourteen-Two
 
-The core libraries for a cloud-based Ultimate Pool League scoring application.
+The core libraries for a cloud-based Ultimate Pool League scoring
+application.
 
 ## quickstart
 
