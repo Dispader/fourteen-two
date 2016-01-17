@@ -6,5 +6,6 @@ import groovy.transform.*
 @ToString(includePackage=false, includeFields=true, includeNames=true)
 class Match {
     Date time
+    Date otherVar
     String homeTeamId, awayTeamId
 }
