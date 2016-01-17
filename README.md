@@ -5,7 +5,8 @@ application.
 
 ## quickstart
 
-This project uses [Gradle](http://gradle.org/) as a build system, and provides [standardized project scripts](http://githubengineering.com/scripts-to-rule-them-all/) for developers.
+This project uses [Gradle](http://gradle.org/) as a build system,
+and provides [standardized project scripts](http://githubengineering.com/scripts-to-rule-them-all/) for developers.
 
 * `./build/watch` - Runs all checks and tests, watching for dependent changes in source trees.
 * `./build/cibuild` - Run all continuous integration tasks.
