@@ -1,5 +1,7 @@
 # Fourteen-Two
 
+[![Travis build status](https://travis-ci.org/Marmousets/fourteen-two.svg)](https://travis-ci.org/Marmousets/fourteen-two)
+
 The core libraries for a cloud-based Ultimate Pool League scoring application.
 
 ## quickstart
